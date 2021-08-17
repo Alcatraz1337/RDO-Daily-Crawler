@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import time
 
 def GenerateURL(date):
     url = "https://rdodailies.com/?date="+date+"&lang=zh"
@@ -68,7 +69,7 @@ def FormatFile(file):
         
         f.seek(0)
         f.write(prevData)
-        f.write("\n赏金猎人\n")
+        f.write("\n职业任务（不同等级任务不同，具体请按照自己当前等级参考\n赏金猎人\n")
         f.write("\n1-4级\n")
         f.write(easyChallenge)
         f.write("\n5-14级\n")
@@ -85,13 +86,13 @@ def FormatFile(file):
         normalChallenge = ""
         hardChallenge = ""
         for i, d in enumerate(f.readlines(), start = 1):
-            if i < 27:
+            if i < 28:
                 prevData += d
-            elif i >= 27 and i < 30:
+            elif i >= 28 and i < 31:
                 easyChallenge += d
-            elif i >= 30 and i < 33:
+            elif i >= 31 and i < 34:
                 normalChallenge += d
-            elif i >= 33 and i < 36:
+            elif i >= 34 and i < 37:
                 hardChallenge += d
             else:
                 afterData += d
@@ -116,13 +117,13 @@ def FormatFile(file):
         normalChallenge = ""
         hardChallenge = ""
         for i, d in enumerate(f.readlines(), start = 1):
-            if i < 44:
+            if i < 45:
                 prevData += d
-            elif i >= 44 and i < 47:
+            elif i >= 45 and i < 48:
                 easyChallenge += d
-            elif i >= 47 and i < 50:
+            elif i >= 48 and i < 51:
                 normalChallenge += d
-            elif i >= 50 and i < 53:
+            elif i >= 53 and i < 54:
                 hardChallenge += d
             else:
                 afterData += d
@@ -147,13 +148,13 @@ def FormatFile(file):
         normalChallenge = ""
         hardChallenge = ""
         for i, d in enumerate(f.readlines(), start = 1):
-            if i < 61:
+            if i < 62:
                 prevData += d
-            elif i >= 61 and i < 64:
+            elif i >= 62 and i < 65:
                 easyChallenge += d
-            elif i >= 64 and i < 67:
+            elif i >= 65 and i < 68:
                 normalChallenge += d
-            elif i >= 67 and i < 70:
+            elif i >= 68 and i < 71:
                 hardChallenge += d
             else:
                 afterData += d
@@ -178,13 +179,13 @@ def FormatFile(file):
         normalChallenge = ""
         hardChallenge = ""
         for i, d in enumerate(f.readlines(), start = 1):
-            if i < 78:
+            if i < 79:
                 prevData += d
-            elif i >= 78 and i < 81:
+            elif i >= 79 and i < 82:
                 easyChallenge += d
-            elif i >= 81 and i < 84:
+            elif i >= 82 and i < 85:
                 normalChallenge += d
-            elif i >= 84 and i < 87:
+            elif i >= 85 and i < 88:
                 hardChallenge += d
             else:
                 afterData += d
@@ -211,6 +212,8 @@ def main():
     GetAllChallenges(soup, file)
     GetNazarLocation(soup, file)
     FormatFile(file)
+    print("已完成，将在3秒后退出！")
+    time.sleep(3)
 
 if __name__ == "__main__":
     main()
