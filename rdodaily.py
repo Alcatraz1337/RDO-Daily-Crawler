@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import time
+import os
 
 def GenerateURL(date):
     url = "https://rdodailies.com/?date="+date+"&lang=zh"
@@ -20,7 +21,10 @@ def GetAllChallenges(soup, file):
     allChallenges = soup.find_all('span', class_='challenge-input-container-label')
     allChallengeGoals = soup.find_all('span', class_='challenge-goal')
 
-    with open(file, "w", encoding="utf-8") as f:
+    if not os.path.exists("Archive"):
+        os.mkdir("Archive")
+
+    with open(file, "w+", encoding="utf-8") as f:
         for i in range(len(allChallenges)):
             if len(re.split(r'[\n]', allChallenges[i].label.get_text())) > 1:
                 count = str(i + 1)
@@ -206,7 +210,8 @@ def FormatFile(file):
 
 def main():
     date = input("Enter date (YYYY-MM-DD): ")
-    file = "D:\Documents\我的坚果云\RDO 每日挑战\Archive\daily"+date+".txt"
+    dateOfFile = "\Archive\daily"+date+".txt"
+    file = os.path.join(os.path.dirname(__file__) + dateOfFile)
     url = GenerateURL(date)
     soup = ReadHTML(url)
     GetAllChallenges(soup, file)

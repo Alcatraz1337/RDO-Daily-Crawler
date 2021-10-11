@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['rdodaily.py'],
-             pathex=['D:\\Documents\\GitHub\\RDO-Daily-Crawler'],
+             pathex=['C:\\Users\\Lynn\\Documents\\GitHub\\RDO-Daily-Crawler'],
              binaries=[],
              datas=[],
              hiddenimports=[],
