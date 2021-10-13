@@ -211,7 +211,7 @@ def main():
         os.mkdir("Archive")
     dateOfFile = "\Archive\daily-"+date+".txt"
     file = os.path.dirname(os.path.abspath(__file__)) + dateOfFile
-    print(file)
+    print("Saving file to: " + file)
     url = GenerateURL(date)
     soup = ReadHTML(url)
     GetAllChallenges(soup, file)

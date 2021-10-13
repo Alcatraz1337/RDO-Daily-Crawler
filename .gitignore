@@ -2,3 +2,7 @@
 Archive/
 build/
 venv/
+dist/
+*.toc
+*.pkg
+
