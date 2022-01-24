@@ -246,7 +246,7 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在马附近，右键-牵引\n", text, i)
             elif text[i].find("已踩踏的")>=0:
                 i, text = Insert("骑马踩过去\n", text, i)
-            elif text[i].find("团队暗斗")>=0 or text[i].find("采药")>=0 or text[i].find("大鱼")>=0 or text[i].find("团队竞速")>=0:
+            elif text[i].find("团队暗斗")>=0 or text[i].find("采药")>=0 or text[i].find("大鱼")>=0 or text[i].find("团队竞速")>=0 or text[i].find("猎鸟")>=0:
                 i, text = Insert("在线菜单（L）-团队-团队对抗，需要固定团队才能开始\n", text, i)
             elif text[i].find("腰带扣")>=0:
                 i, text = Insert("在衣柜处更新\n", text, i)
@@ -258,6 +258,8 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在瓦伦丁、圣丹尼斯的药店出售\n", text, i)
             elif text[i].find("饮用的咖啡")>=0:
                 i, text = Insert("在篝火处煮咖啡，或者在私酒酒吧喝\n", text, i)
+            elif text[i].find("分解的小型动物")>=0:
+                i, text = Insert("在背包（B）中分解\n", text, i)
 
 
             #赏金猎人
