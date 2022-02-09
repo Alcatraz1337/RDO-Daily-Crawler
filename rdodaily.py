@@ -238,7 +238,7 @@ def ReFill(file): # Auto fill some challenges here, using re
             elif text[i].find("自定义的武器")>=0:
                 i, text = Insert("在武器店更新武器\n", text, i)
             elif text[i].find("出售的动物牙齿")>=0:
-                i, text = Insert("猎杀鳄鱼、河狸等动物动物可以获得\n", text, i)
+                i, text = Insert("猎杀鳄鱼、河狸等动物可以获得\n", text, i)
             elif text[i].find("匕首")>=0:
                 i, text = Insert("用绳索套住后捅死，或者麻醉后捅死（掉荣誉）\n", text, i)
             elif text[i].find("电报")>=0:
@@ -247,10 +247,12 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在马附近，右键-牵引\n", text, i)
             elif text[i].find("已踩踏的")>=0:
                 i, text = Insert("骑马踩过去\n", text, i)
-            elif text[i].find("团队暗斗")>=0 or text[i].find("采药")>=0 or text[i].find("大鱼")>=0 or text[i].find("团队竞速")>=0 or text[i].find("猎鸟")>=0 or text[i].find("团队对抗")>=0:
+            elif text[i].find("团队暗斗")>=0 or text[i].find("采药")>=0 or text[i].find("大鱼")>=0 or text[i].find("团队竞速")>=0 or text[i].find("猎鸟")>=0 or text[i].find("团队对抗")>=0 or text[i].find("斩首行动")>=0:
                 i, text = Insert("在线菜单（L）-团队-团队对抗，需要固定团队才能开始\n", text, i)
             elif text[i].find("腰带扣")>=0:
                 i, text = Insert("在衣柜处更新\n", text, i)
+            elif text[i].find("服装风格")>=0:
+                i, text = Insert("在衣柜里换衣服，或者直接在马背上更换套装即可\n", text, i)
             elif text[i].find("高敌意等级")>=0:
                 i, text = Insert("一个游戏日内不主动击杀其他玩家\n", text, i)
             elif text[i].find("面具")>=0:
@@ -261,12 +263,12 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在篝火处煮咖啡，或者在私酒酒吧喝\n", text, i)
             elif text[i].find("分解的小型动物")>=0:
                 i, text = Insert("在背包（B）中分解\n", text, i)
-            elif text[i].find("更新面部外观")>=0:
+            elif text[i].find("更新面部外观")>=0 or text[i].find("更新的发型")>=0:
                 i, text = Insert("在黑水镇、瓦伦丁、圣丹尼斯的发廊更新\n", text, i)
             elif text[i].find("免费零食")>=0:
                 i, text = Insert("在酒吧里找提供的小零食，或者在私酒棚屋酒吧找\n", text, i)
-            elif text[i].find("进行自拍")>=0:
-                i, text = Insert("在物品栏中找到相机，按对应按键进行自拍\n", text, i)
+            elif text[i].find("进行自拍")>=0 or text[i].find("马拍照")>=0:
+                i, text = Insert("在物品栏中找到相机，按对应按键进行拍照\n", text, i)
                 
 
 
