@@ -259,6 +259,8 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("戴上面具，或者在衣柜给一个套装选中一个蒙面巾也行\n", text, i)
             elif text[i].find("出售的草药")>=0:
                 i, text = Insert("在瓦伦丁、圣丹尼斯的药店出售\n", text, i)
+            elif text[i].find("食用的草药")>=0:
+                i, text = Insert("在背包（B）中原材料里找到草药食用，或者直接采摘食用\n", text, i)
             elif text[i].find("饮用的咖啡")>=0:
                 i, text = Insert("在篝火处煮咖啡，或者在私酒酒吧喝\n", text, i)
             elif text[i].find("分解的小型动物")>=0:
@@ -269,8 +271,20 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在酒吧里找提供的小零食，或者在私酒棚屋酒吧找\n", text, i)
             elif text[i].find("进行自拍")>=0 or text[i].find("马拍照")>=0:
                 i, text = Insert("在物品栏中找到相机，按对应按键进行拍照\n", text, i)
-                
-
+            elif text[i].find("黑市出售")>=0:
+                i, text = Insert("在盗贼领地、翡翠车站、罗兹的黑市出售物品\n", text, i)
+            elif text[i].find("加入的团队")>=0:
+                i, text = Insert("加入一支固定队伍即可\n", text, i)
+            elif text[i].find("掩护时杀死")>=0:
+                i, text = Insert("在掩体后击杀敌人即可\n", text, i)
+            elif text[i].find("取得资本券")>=0:
+                i, text = Insert("通过游玩血染之财任务，搜刮可能获得\n", text, i)
+            elif text[i].find("动物放上马背")>=0:
+                i, text = Insert("同一只动物不算\n", text, i)
+            elif text[i].find("更新马具")>=0:
+                i, text = Insert("在马厩更新一个马具\n", text, i)
+            elif text[i].find("杀死的狼")>=0:
+                i, text = Insert("找不到狼可以通过完成：传说悬赏-狼人 来完成\n", text, i)
 
             #赏金猎人
             elif text[i].find("马背上")>=0:
