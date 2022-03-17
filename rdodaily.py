@@ -1,4 +1,3 @@
-from turtle import textinput
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -351,7 +350,7 @@ def main():
     date = input("Enter date (YYYY-MM-DD): ")
     if not os.path.exists("Archive"):
         os.mkdir("Archive")
-    dateOfFile = "\Archive\daily-"+date+".txt"
+    dateOfFile = "/Archive/daily-"+date+".txt"
     file = os.path.dirname(os.path.abspath(__file__)) + dateOfFile
     print("Saving file to: " + file)
     url = GenerateURL(date)
