@@ -1,4 +1,3 @@
-from turtle import textinput
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -37,6 +36,7 @@ def GetNazarLocation(soup, file):
     with open(file, "a", encoding="utf-8") as f:
         f.write('\n夫人位置\n')
         f.write(nazar)
+        f.write("\n最近传送点：\n#荒野大镖客：救赎2# #荒野大镖客线上#")
 
     print("Done!")
 
@@ -253,6 +253,8 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在衣柜处更新\n", text, i)
             elif text[i].find("服装风格")>=0:
                 i, text = Insert("在衣柜里换衣服，或者直接在马背上更换套装即可\n", text, i)
+            elif text[i].find("营地主题")>=0:
+                i, text = Insert("在营地野外供应商处购买更换\n", text, i)
             elif text[i].find("高敌意等级")>=0:
                 i, text = Insert("一个游戏日内不主动击杀其他玩家\n", text, i)
             elif text[i].find("面具")>=0:
@@ -269,6 +271,8 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在黑水镇、瓦伦丁、圣丹尼斯的发廊更新\n", text, i)
             elif text[i].find("免费零食")>=0:
                 i, text = Insert("在酒吧里找提供的小零食，或者在私酒棚屋酒吧找\n", text, i)
+            elif text[i].find("喝醉")>=0:
+                i, text = Insert("不断喝酒，直到画面开始扭曲为止\n", text, i)
             elif text[i].find("进行自拍")>=0 or text[i].find("马拍照")>=0:
                 i, text = Insert("在物品栏中找到相机，按对应按键进行拍照\n", text, i)
             elif text[i].find("黑市出售")>=0:
@@ -351,7 +355,7 @@ def main():
     date = input("Enter date (YYYY-MM-DD): ")
     if not os.path.exists("Archive"):
         os.mkdir("Archive")
-    dateOfFile = "\Archive\daily-"+date+".txt"
+    dateOfFile = "/Archive/daily-"+date+".txt"
     file = os.path.dirname(os.path.abspath(__file__)) + dateOfFile
     print("Saving file to: " + file)
     url = GenerateURL(date)
