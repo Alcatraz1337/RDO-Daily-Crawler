@@ -263,6 +263,8 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在瓦伦丁、圣丹尼斯的药店出售\n", text, i)
             elif text[i].find("食用的草药")>=0:
                 i, text = Insert("在背包（B）中原材料里找到草药食用，或者直接采摘食用\n", text, i)
+            elif text[i].find("阿拉斯加人参")>=0:
+                i, text = Insert("北部有个农庄必定刷新很多人参，详细请见热心网友\n",text, i)
             elif text[i].find("饮用的咖啡")>=0:
                 i, text = Insert("在篝火处煮咖啡，或者在私酒酒吧喝\n", text, i)
             elif text[i].find("分解的小型动物")>=0:
