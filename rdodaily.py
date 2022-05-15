@@ -265,6 +265,8 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在武器店更新武器\n", text, i)
             elif text[i].find("出售的动物牙齿")>=0:
                 i, text = Insert("猎杀鳄鱼、河狸等动物可以获得\n", text, i)
+            elif text[i].find("完美皮毛") >= 0:
+                i, text = Insert("干净猎杀即可，无需三星\n", text, i)
             elif text[i].find("匕首")>=0:
                 i, text = Insert("用绳索套住后捅死，或者麻醉后捅死（掉荣誉）\n", text, i)
             elif text[i].find("电报")>=0:
