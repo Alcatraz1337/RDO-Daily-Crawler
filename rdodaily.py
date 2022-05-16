@@ -97,7 +97,7 @@ def FormatFile(file):
         
         f.seek(0)
         f.write(prevData)
-        f.write("\n职业任务（不同等级任务不同，具体请按照自己当前等级参考\n赏金猎人\n")
+        f.write("\n职业任务（不同等级任务不同，具体请按照自己当前等级参考）\n赏金猎人\n")
         f.write("\n1-4级\n")
         f.write(easyChallenge)
         f.write("\n5-14级\n")
@@ -317,6 +317,8 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("同一只动物不算\n", text, i)
             elif text[i].find("更新马具")>=0:
                 i, text = Insert("在马厩更新一个马具\n", text, i)
+            elif text[i].find("更新马匹外观")>=0:
+                i, text = Insert("在马厩更新\n", text, i)
             elif text[i].find("杀死的狼")>=0:
                 i, text = Insert("找不到狼可以通过完成：传说悬赏-狼人 来完成\n", text, i)
             elif text[i].find("藏宝图或宝藏")>=0:
