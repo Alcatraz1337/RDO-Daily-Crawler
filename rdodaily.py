@@ -33,10 +33,36 @@ def GetAllChallenges(soup, file):
 
 def GetNazarLocation(soup, file):
     nazar = soup.select("#nazar-location-container")[0].img.get('src')
+    nearestFastTravel = ""
+    if(nazar.find("mpsw_location_00")) >= 0:
+        nearestFastTravel = "\n最近传送点：风滚草镇\n"
+    if(nazar.find("mpsw_location_01")) >= 0:
+        nearestFastTravel = "\n最近传送点：犰狳镇\n"
+    if(nazar.find("mpsw_location_02")) >= 0:
+        nearestFastTravel = "\n最近传送点：黑水镇或者麦克法兰牧场\n"
+    if(nazar.find("mpsw_location_03")) >= 0:
+        nearestFastTravel = "\n最近传送点：石兰贸易站\n"
+    if(nazar.find("mpsw_location_04")) >= 0:
+        nearestFastTravel = "\n最近传送点：草莓镇\n"
+    if(nazar.find("mpsw_location_05")) >= 0:
+        nearestFastTravel = "\n最近传送点：翡翠车站\n"
+    if(nazar.find("mpsw_location_06")) >= 0:
+        nearestFastTravel = "\n最近传送点：瓦伦丁\n"
+    if(nazar.find("mpsw_location_07")) >= 0:
+        nearestFastTravel = "\n最近传送点：翡翠车站\n"
+    if(nazar.find("mpsw_location_08")) >= 0:
+        nearestFastTravel = "\n最近传送点：罗兹\n"
+    if(nazar.find("mpsw_location_09")) >= 0:
+        nearestFastTravel = "\n最近传送点：拉格拉斯\n"
+    if(nazar.find("mpsw_location_10")) >= 0:
+        nearestFastTravel = "\n最近传送点：瓦伦丁或者瓦匹缇\n"
+    if(nazar.find("mpsw_location_11")) >= 0:
+        nearestFastTravel = "\n最近传送点：安尼斯堡\n"
     with open(file, "a", encoding="utf-8") as f:
         f.write('\n夫人位置\n')
         f.write(nazar)
-        f.write("\n最近传送点：\n#荒野大镖客：救赎2# #荒野大镖客线上#")
+        f.write(nearestFastTravel)
+        f.write("#荒野大镖客：救赎2# #荒野大镖客线上#")
 
     print("Done!")
 
@@ -71,7 +97,7 @@ def FormatFile(file):
         
         f.seek(0)
         f.write(prevData)
-        f.write("\n职业任务（不同等级任务不同，具体请按照自己当前等级参考\n赏金猎人\n")
+        f.write("\n职业任务（不同等级任务不同，具体请按照自己当前等级参考）\n赏金猎人\n")
         f.write("\n1-4级\n")
         f.write(easyChallenge)
         f.write("\n5-14级\n")
@@ -239,6 +265,8 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在武器店更新武器\n", text, i)
             elif text[i].find("出售的动物牙齿")>=0:
                 i, text = Insert("猎杀鳄鱼、河狸等动物可以获得\n", text, i)
+            elif text[i].find("完美皮毛") >= 0:
+                i, text = Insert("干净猎杀即可，无需三星\n", text, i)
             elif text[i].find("匕首")>=0:
                 i, text = Insert("用绳索套住后捅死，或者麻醉后捅死（掉荣誉）\n", text, i)
             elif text[i].find("电报")>=0:
@@ -263,6 +291,8 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在瓦伦丁、圣丹尼斯的药店出售\n", text, i)
             elif text[i].find("食用的草药")>=0:
                 i, text = Insert("在背包（B）中原材料里找到草药食用，或者直接采摘食用\n", text, i)
+            elif text[i].find("阿拉斯加人参")>=0:
+                i, text = Insert("北部有个农庄必定刷新很多人参，详细请见热心网友\n",text, i)
             elif text[i].find("饮用的咖啡")>=0:
                 i, text = Insert("在篝火处煮咖啡，或者在私酒酒吧喝\n", text, i)
             elif text[i].find("分解的小型动物")>=0:
@@ -287,8 +317,12 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("同一只动物不算\n", text, i)
             elif text[i].find("更新马具")>=0:
                 i, text = Insert("在马厩更新一个马具\n", text, i)
+            elif text[i].find("更新马匹外观")>=0:
+                i, text = Insert("在马厩更新\n", text, i)
             elif text[i].find("杀死的狼")>=0:
                 i, text = Insert("找不到狼可以通过完成：传说悬赏-狼人 来完成\n", text, i)
+            elif text[i].find("藏宝图或宝藏")>=0:
+                i, text = Insert("和宝藏猎人互动，或者在世界发现树上的藏宝图可以获得藏宝图。夜间注意发光的树。\n", text, i)
 
             #赏金猎人
             elif text[i].find("马背上")>=0:
@@ -355,8 +389,8 @@ def main():
     date = input("Enter date (YYYY-MM-DD): ")
     if not os.path.exists("Archive"):
         os.mkdir("Archive")
-    dateOfFile = "/Archive/daily-"+date+".txt"
-    file = os.path.dirname(os.path.abspath(__file__)) + dateOfFile
+    fileDate = "/Archive/daily-"+date+".txt"
+    file = os.path.dirname(os.path.abspath(__file__)) + fileDate
     print("Saving file to: " + file)
     url = GenerateURL(date)
     soup = ReadHTML(url)

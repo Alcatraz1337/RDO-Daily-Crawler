@@ -6,3 +6,4 @@ This is a simple crawler for Red Dead Redemption 2 Online daily missions.
 
 * requests
 * bs4
+* pyinstaller
