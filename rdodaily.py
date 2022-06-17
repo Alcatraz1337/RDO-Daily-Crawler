@@ -1,38 +1,42 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.select import Select
 import time
 import os
 
 def GenerateURL(date):
-    url = "https://rdodailies.com/?date="+date+"&lang=zh"
+    url = "https://rdoapi.xyz/"
     return url
 
 def ReadHTML(url):
     print("Requesting...")
-    res = requests.get(url)
-    res.encoding = 'utf-8'
-    html = res.text
+    chrome_opt = Options()
+    chrome_opt.add_argument("--headless")
+    driver = webdriver.Chrome(options=chrome_opt)
+    driver.get(url)
+    sel = Select(driver.find_element_by_id("language"))
+    sel.select_by_value("zh_Hans")
+    html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
+    driver.close
     return soup
 
 def GetAllChallenges(soup, file):
     print("Getting all challenges...")
-    allChallenges = soup.find_all('span', class_='challenge-input-container-label')
-    allChallengeGoals = soup.find_all('span', class_='challenge-goal')
+    allChallenges = soup.find_all('p', class_='daily-general')
+    allChallengeGoals = soup.find_all('p', class_='daily-goal')
 
     with open(file, "w+", encoding="utf-8") as f:
         for i in range(len(allChallenges)):
-            if len(re.split(r'[\n]', allChallenges[i].label.get_text())) > 1:
-                count = str(i + 1)
-                txtToWrite = str(count+'. '+re.split(r'[\n]', allChallenges[i].label.get_text())[1]+'：'+re.split(r'[\n]',allChallengeGoals[i].get_text())[1]+'\n')
-                f.write(txtToWrite)
-            else:
-                txtToWrite = str(re.split(r'[\n]', allChallenges[i].label.get_text())[0]+'：'+re.split(r'[\n]',allChallengeGoals[i].get_text())[1]+'\n')
-                f.write(txtToWrite)
+            txtToWrite = str(allChallenges[i].get_text() + ': ' + allChallengeGoals[i].get_text() + '\n')
+            f.write(txtToWrite)
 
 def GetNazarLocation(soup, file):
-    nazar = soup.select("#nazar-location-container")[0].img.get('src')
+    # Get nazar location file
+    nazar = soup.find('div', 'nazar').select('img')[1].get('src')
     nearestFastTravel = ""
     if(nazar.find("mpsw_location_00")) >= 0:
         nearestFastTravel = "\n最近传送点：风滚草镇\n"
@@ -86,11 +90,11 @@ def FormatFile(file):
             if i < 10:
                 prevData += d
             elif i >= 10 and i < 13:
-                easyChallenge += d
+                hardChallenge += d
             elif i >= 13 and i < 16:
                 normalChallenge += d
             elif i >= 16 and i < 19:
-                hardChallenge += d
+                easyChallenge += d
             else:
                 afterData += d
         
@@ -117,14 +121,13 @@ def FormatFile(file):
             if i < 28:
                 prevData += d
             elif i >= 28 and i < 31:
-                easyChallenge += d
+                hardChallenge += d
             elif i >= 31 and i < 34:
                 normalChallenge += d
             elif i >= 34 and i < 37:
-                hardChallenge += d
+                easyChallenge += d
             else:
                 afterData += d
-        
         
         f.seek(0)
         f.write(prevData)
@@ -148,11 +151,11 @@ def FormatFile(file):
             if i < 45:
                 prevData += d
             elif i >= 45 and i < 48:
-                easyChallenge += d
+                hardChallenge += d
             elif i >= 48 and i < 51:
                 normalChallenge += d
-            elif i >= 53 and i < 54:
-                hardChallenge += d
+            elif i >= 51 and i < 54:
+                easyChallenge += d
             else:
                 afterData += d
         
@@ -179,14 +182,13 @@ def FormatFile(file):
             if i < 62:
                 prevData += d
             elif i >= 62 and i < 65:
-                easyChallenge += d
+                hardChallenge += d
             elif i >= 65 and i < 68:
                 normalChallenge += d
             elif i >= 68 and i < 71:
-                hardChallenge += d
+                easyChallenge += d
             else:
                 afterData += d
-        
         
         f.seek(0)
         f.write(prevData)
@@ -210,14 +212,13 @@ def FormatFile(file):
             if i < 79:
                 prevData += d
             elif i >= 79 and i < 82:
-                easyChallenge += d
+                hardChallenge += d
             elif i >= 82 and i < 85:
                 normalChallenge += d
             elif i >= 85 and i < 88:
-                hardChallenge += d
+                easyChallenge += d
             else:
                 afterData += d
-        
         
         f.seek(0)
         f.write(prevData)
@@ -238,7 +239,6 @@ def Insert(str, txt, idx):
     txt[idx+1] = str #插入攻略
     txt[idx + 2:] = after #将之后的任务添加回去
     return idx + 2, txt
-
 
 def ReFill(file): # Auto fill some challenges here, using re
     print("Auto filling...")
@@ -392,7 +392,7 @@ def main():
     fileDate = "/Archive/daily-"+date+".txt"
     file = os.path.dirname(os.path.abspath(__file__)) + fileDate
     print("Saving file to: " + file)
-    url = GenerateURL(date)
+    url = "https://rdoapi.xyz/"
     soup = ReadHTML(url)
     GetAllChallenges(soup, file)
     GetNazarLocation(soup, file)
