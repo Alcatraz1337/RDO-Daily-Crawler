@@ -1,3 +1,4 @@
+from http.client import ImproperConnectionState
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -6,6 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.select import Select
 import time
 import os
+from datetime import datetime
 
 def GenerateURL(date):
     url = "https://rdoapi.xyz/"
@@ -18,7 +20,8 @@ def ReadHTML(url):
     driver = webdriver.Chrome(options=chrome_opt)
     driver.get(url)
     sel = Select(driver.find_element_by_id("language"))
-    sel.select_by_value("zh_Hans")
+    #sel = Select(driver.find_element_by_name("select-language"))
+    sel.select_by_value("zh-Hans")
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
     driver.close
@@ -386,7 +389,7 @@ def ReFill(file): # Auto fill some challenges here, using re
         print("Auto fill complete!")
 
 def main():
-    date = input("Enter date (YYYY-MM-DD): ")
+    date = datetime.today().strftime('%Y-%m-%d')
     if not os.path.exists("Archive"):
         os.mkdir("Archive")
     fileDate = "/Archive/daily-"+date+".txt"
