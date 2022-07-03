@@ -5,6 +5,7 @@ import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
 import time
 import os
 from datetime import datetime
@@ -19,7 +20,8 @@ def ReadHTML(url):
     chrome_opt.add_argument("--headless")
     driver = webdriver.Chrome(options=chrome_opt)
     driver.get(url)
-    sel = Select(driver.find_element_by_id("language"))
+    # sel = Select(driver.find_element_by_id("language"))
+    sel = Select(driver.find_element(By.ID, "language"))
     #sel = Select(driver.find_element_by_name("select-language"))
     sel.select_by_value("zh-Hans")
     html = driver.page_source
@@ -254,7 +256,7 @@ def ReFill(file): # Auto fill some challenges here, using re
                 i, text = Insert("在线菜单（L）-快速加入-满足要求的系列赛，中途加入不算\n", text, i)
             elif text[i].find("待命状态")>=0:
                 i, text = Insert("在线菜单（L）-快速加入-待命故事任务\b", text, i)
-            elif text[i].find("火车")>=0:
+            elif text[i].find("火车")>=0 and text[i].find("距离")>=0:
                 i, text = Insert("麦克法兰牧场常刷火车\n", text, i)
             elif text[i].find("烟")>=0:
                 i, text = Insert("吸烟有害健康！\n", text, i)
